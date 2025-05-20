@@ -1,6 +1,14 @@
 package com.gildedrose;
 
+import com.gildedrose.Item.Item;
+
 class GildedRose {
+
+    private static final String AGED_BRIE = "Aged Brie";
+    private static final String BACKSTAGE_PASSES = "Backstage passes";
+    private static final String SULFURAS = "Sulfuras";
+    private static final String CONJURED = "Conjured";
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -15,8 +23,12 @@ class GildedRose {
                 continue;
             }
 
+            if (item.name.contains(SULFURAS)) {
+                continue;
+            }
+
             // Backstage passes goes up in quality as sellIn approaches
-            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (item.name.contains(BACKSTAGE_PASSES)) {
                 if (item.sellIn <= 0) {
                     item.quality = 0;
                 } else if (item.sellIn < 6) {
@@ -31,8 +43,15 @@ class GildedRose {
             }
 
             // Brie goes up as it ages
-            if (item.name.equals("Aged Brie")) {
+            if (item.name.contains(AGED_BRIE)) {
                 item.quality = Math.min(50, item.quality + 1);
+                item.sellIn--;
+                continue;
+            }
+
+            // Conjured items spoil twice as fast as normal items
+            if (item.name.contains(CONJURED)) {
+                item.quality = Math.max(0, item.quality - (item.sellIn < 0 ? 4 : 2));
                 item.sellIn--;
                 continue;
             }
