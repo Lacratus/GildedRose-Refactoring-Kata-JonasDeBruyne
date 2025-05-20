@@ -9,7 +9,7 @@ public class BackstagePass extends UpdatableItem {
     @Override
     public void update() {
         item.sellIn--;
-        if (item.sellIn <= 0) {
+        if (item.sellIn < 0) {
             item.quality = 0;
         } else if (item.sellIn < 6) {
             increaseQuality(3);
