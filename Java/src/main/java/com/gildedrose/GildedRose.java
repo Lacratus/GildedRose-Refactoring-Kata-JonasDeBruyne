@@ -10,8 +10,24 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
 
-            // Sulfuras doesn't decrease in value/quality
-            if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            // Maximum quality available is 50
+            if (item.quality >= 50) {
+                continue;
+            }
+
+
+            if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (item.sellIn < 11) {
+                    if (item.quality < 50) {
+                        item.quality = item.quality + 2;
+                    }
+                }
+
+                if (item.sellIn < 6) {
+                    if (item.quality < 50) {
+                        item.quality = item.quality + 5;
+                    }
+                }
                 return;
             }
 
@@ -39,8 +55,6 @@ class GildedRose {
                     }
                 }
             }
-
-
 
             if (item.sellIn < 0) {
                 if (!item.name.equals("Aged Brie")) {
